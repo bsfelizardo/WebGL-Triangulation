@@ -136,14 +136,14 @@
       // Draw triangles
       //    **Note: Initially used increments of 6 but always skipped vertices on the array so tried other integers and 3 worked
       //    Assumption is that second parameter of drawArrays is the index of the VERTEX not the number.
-      for(let i=0; i<nose_vertices.length; i+=3){
+      for(let i=0; i<nose_vertices.length/2; i+=3){
         // alternating color of triangle
         i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
         gl.drawArrays(gl.TRIANGLES, i, 3);
       }
 
       // Draw lines
-      for(let i = 0; i < nose_vertices.length; i+=3) {
+      for(let i = 0; i < nose_vertices.length/2; i+=3) {
         // set color
         gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
         // points to connects line on perimeter of nose
@@ -155,7 +155,7 @@
       // Draw points
       gl.uniform4f(u_colorLocation,0.0,1.0,0.0,1.0);
       gl.drawArrays(gl.POINTS, 2, 1);
-      for(let i=0; i<nose_vertices.length; i+=3){
+      for(let i=0; i<nose_vertices.length/2; i+=3){
         gl.drawArrays(gl.POINTS, i, 1);
       }
 
@@ -192,7 +192,7 @@
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
       
       // Draw triangles
-      for(let i=0; i<right_eye_vertices.length; i+=3){
+      for(let i=0; i<right_eye_vertices.length/2; i+=3){
         // alternating color of triangle
         i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
         gl.drawArrays(gl.TRIANGLES, i, 3);
@@ -200,7 +200,7 @@
       
       // Draw lines
       gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
-      for(let i = 0; i < right_eye_vertices.length; i+=3) {
+      for(let i = 0; i < right_eye_vertices.length/2; i+=3) {
         // set color
         gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
         // points to connects line on perimeter of nose
@@ -212,12 +212,51 @@
       // Draw points
       gl.uniform4f(u_colorLocation,0.0,1.0,0.0,1.0);
       gl.drawArrays(gl.POINTS, 2, 1);
-      for(let i=0; i<right_eye_vertices.length; i+=3){
+      for(let i=0; i<right_eye_vertices.length/2; i+=3){
         gl.drawArrays(gl.POINTS, i, 1);
       }
 
       gl.bindBuffer(gl.ARRAY_BUFFER, null);
       
+
+
+// left eye bottom and top center
+gl.vertexAttrib4f(aPositionPointer, -0.21, 0.0, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.21, 0.18, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+
+      // left eye right side
+      gl.vertexAttrib4f(aPositionPointer, -0.24, 0.01, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.27, 0.035, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.28, 0.07, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.28, 0.11, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.27, 0.145, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.24, 0.175, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      
+      // left eye left side
+      gl.vertexAttrib4f(aPositionPointer, -0.18, 0.01, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.15, 0.035, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.14, 0.07, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.14, 0.11, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.15, 0.145, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+      gl.vertexAttrib4f(aPositionPointer, -0.18, 0.175, 0.0, 1.0); // x=0, y=0, z=0, w=1
+      gl.drawArrays(gl.POINTS, offset, count);
+
+
+
+
 
       // upper lip midline
       gl.vertexAttrib4f(aPositionPointer, 0.0, -0.25, 0.0, 1.0); // x=0, y=0, z=0, w=1
@@ -279,39 +318,7 @@
 
       
 
-      // left eye bottom and top center
-      gl.vertexAttrib4f(aPositionPointer, -0.21, 0.0, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.21, 0.18, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-
-      // left eye right side
-      gl.vertexAttrib4f(aPositionPointer, -0.24, 0.01, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.27, 0.035, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.28, 0.07, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.28, 0.11, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.27, 0.145, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.24, 0.175, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
       
-      // left eye left side
-      gl.vertexAttrib4f(aPositionPointer, -0.18, 0.01, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.15, 0.035, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.14, 0.07, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.14, 0.11, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.15, 0.145, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.18, 0.175, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
 
       // connection point of rounded cheeks to head
       gl.vertexAttrib4f(aPositionPointer, 0.4, 0.0, 0.0, 1.0); // x=0, y=0, z=0, w=1
