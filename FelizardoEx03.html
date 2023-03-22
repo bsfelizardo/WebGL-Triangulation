@@ -219,43 +219,61 @@
       gl.bindBuffer(gl.ARRAY_BUFFER, null);
       
 
+      //  LEFT EYE
+      // coordinates
+      // arranged as 3 sets of ordered pairs per line:
+      //    first 2 points (4 coordinates) per line are points on perimeter of nose
+      //    last 2 points per line are coordinates of point on center of nose
+      var left_eye_vertices = [
+      -0.21, 0.0, -0.24, 0.01, -0.21, 0.09,
+      -0.24, 0.01, -0.27, 0.035, -0.21, 0.09,
+      -0.27, 0.035, -0.28, 0.07, -0.21, 0.09,
+      -0.28, 0.07, -0.28, 0.11, -0.21, 0.09,
+      -0.28, 0.11, -0.27, 0.145, -0.21, 0.09,
+      -0.27, 0.145, -0.24, 0.175, -0.21, 0.09,
+      -0.24, 0.175, -0.21, 0.18, -0.21, 0.09,
+      -0.21, 0.18, -0.18, 0.175, -0.21, 0.09,
+      -0.18, 0.175, -0.15, 0.145, -0.21, 0.09,
+      -0.15, 0.145, -0.14, 0.11, -0.21, 0.09,
+      -0.14, 0.11, -0.14, 0.07, -0.21, 0.09,
+      -0.14, 0.07, -0.15, 0.035, -0.21, 0.09,
+      -0.15, 0.035, -0.18, 0.01, -0.21, 0.09,
+      -0.18, 0.01, -0.21, 0.0, -0.21, 0.09,
+      ];
 
-// left eye bottom and top center
-gl.vertexAttrib4f(aPositionPointer, -0.21, 0.0, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.21, 0.18, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-
-      // left eye right side
-      gl.vertexAttrib4f(aPositionPointer, -0.24, 0.01, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.27, 0.035, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.28, 0.07, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.28, 0.11, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.27, 0.145, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.24, 0.175, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
+      //Bind buffer object to a target
+      gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());
+      //Write data into the buffer object
+      gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(left_eye_vertices),gl.STATIC_DRAW);
+      //Assign the buffer object to an attribute variable
+      gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
       
-      // left eye left side
-      gl.vertexAttrib4f(aPositionPointer, -0.18, 0.01, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.15, 0.035, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.14, 0.07, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.14, 0.11, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.15, 0.145, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
-      gl.vertexAttrib4f(aPositionPointer, -0.18, 0.175, 0.0, 1.0); // x=0, y=0, z=0, w=1
-      gl.drawArrays(gl.POINTS, offset, count);
+      // Draw triangles
+      for(let i=0; i<left_eye_vertices.length/2; i+=3){
+        // alternating color of triangle
+        i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
+        gl.drawArrays(gl.TRIANGLES, i, 3);
+      }
+      
+      // Draw lines
+      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      for(let i = 0; i < left_eye_vertices.length/2; i+=3) {
+        // set color
+        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
+        // points to connects line on perimeter of nose
+        gl.drawArrays(gl.LINES, i, 2);
+        // one point from perimeter going to center of nose
+        gl.drawArrays(gl.LINES, i+1, 2);
+      }
 
+      // Draw points
+      gl.uniform4f(u_colorLocation,0.0,1.0,0.0,1.0);
+      gl.drawArrays(gl.POINTS, 2, 1);
+      for(let i=0; i<left_eye_vertices.length/2; i+=3){
+        gl.drawArrays(gl.POINTS, i, 1);
+      }
 
-
+      gl.bindBuffer(gl.ARRAY_BUFFER, null);
 
 
       // upper lip midline
