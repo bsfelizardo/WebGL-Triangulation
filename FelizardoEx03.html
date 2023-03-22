@@ -156,6 +156,19 @@
         0.03, -0.59, 0.0, -0.6, 0.0, 0.0,
       ];
 
+
+      // var lower_lip_vertices = [
+      //   0.0, -0.44, -0.03, -0.43, 0.0, -0.3,
+      //   -0.03, -0.43, -0.05, -0.40, 0.0, -0.3,
+      //   -0.05, -0.40, -0.07, -0.37, 0.0, -0.3,
+      //   -0.07, -0.37, -0.09, -0.33, 0.0, -0.3,
+
+      //   0.0, -0.44, 0.03, -0.43, 0.0, -0.3,
+      //   0.03, -0.43, 0.05, -0.40, 0.0, -0.3,
+      //   0.05, -0.40, 0.07, -0.37, 0.0, -0.3,
+      //   0.07, -0.37, 0.09, -0.33, 0.0, -0.3,
+      // ];
+
       //Bind buffer object to a target
       gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());
       //Write data into the buffer object
@@ -171,7 +184,7 @@
 
       
       // Draw triangles
-      for(let i=0; i<cheeks_vertices.length/2; i+=2){
+      for(let i=0; i<cheeks_vertices.length/2; i+=3){
         // alternating color of triangle
         i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
         gl.drawArrays(gl.TRIANGLES, i, 3);
@@ -225,7 +238,7 @@
 
       
       // Draw triangles
-      for(let i=0; i<left_ear_vertices.length/2; i+=2){
+      for(let i=0; i<left_ear_vertices.length/2; i+=3){
         // alternating color of triangle
         i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
         gl.drawArrays(gl.TRIANGLES, i, 3);
@@ -280,7 +293,7 @@
 
       
       // Draw triangles
-      for(let i=0; i<right_ear_vertices.length/2; i+=2){
+      for(let i=0; i<right_ear_vertices.length/2; i+=3){
         // alternating color of triangle
         i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
         gl.drawArrays(gl.TRIANGLES, i, 3);
@@ -359,7 +372,7 @@
 
       
       // Draw triangles
-      for(let i=0; i<upper_head_vertices.length/2; i+=2){
+      for(let i=0; i<upper_head_vertices.length/2; i+=3){
         // alternating color of triangle
         i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
         gl.drawArrays(gl.TRIANGLES, i, 3);
@@ -606,7 +619,7 @@
       // Draw points
       gl.uniform4f(u_colorLocation,0.0,1.0,0.0,1.0);
       gl.drawArrays(gl.POINTS, 2, 1);
-      for(let i=0; i<lower_lip_vertices.length/2; i+=1){
+      for(let i=0; i<lower_lip_vertices.length/2; i+=3){
         gl.drawArrays(gl.POINTS, i, 1);
       }
 
@@ -639,7 +652,7 @@
       // Draw points
       gl.uniform4f(u_colorLocation,0.0,1.0,0.0,1.0);
       gl.drawArrays(gl.POINTS, 2, 1);
-      for(let i=0; i<lip_midline_vertices.length; i+=1){
+      for(let i=0; i<lip_midline_vertices.length; i+=2){
         gl.drawArrays(gl.POINTS, i, 1);
       }
 
