@@ -90,18 +90,21 @@
       // Declaration of pointers to the attributes
       const aPositionPointer = gl.getAttribLocation(program, 'a_position');
       const aPointSizePointer = gl.getAttribLocation(program, 'a_point_size');
+      const u_colorLocation = gl.getUniformLocation(program, 'u_color');
 
       let offset = 0; // start index
       let count = 1; // only one point
 
-      const u_colorLocation = gl.getUniformLocation(program, 'u_color');
-
-      // var vertexBuffer = gl.createBuffer();
+      //Enable assignment
+      gl.enableVertexAttribArray(aPositionPointer);
+      // 
+      gl.vertexAttrib1f(aPointSizePointer, 5.0);
+      
       
       //  CHEEKS
       // coordinates
       var cheeks_vertices = [
-        // left
+        // left side
         -0.4, 0.0, -0.43, -0.01, -0.21, -0.24,
         -0.43, -0.01, -0.44, -0.05, -0.21, -0.24,
         -0.44, -0.05, -0.45, -0.09, -0.21, -0.24,
@@ -156,30 +159,12 @@
         0.03, -0.59, 0.0, -0.6, 0.0, -0.44,
       ];
 
-
-      // var upper_lip_right_vertices = [
-      //   0.0, -0.3, 0.03, -0.32, 0.0, -0.21,
-      //   0.03, -0.32, 0.06, -0.33, 0.0, -0.21,
-      //   0.06, -0.33, 0.09, -0.33, 0.0, -0.21,
-      //   0.09, -0.33, 0.12, -0.32, 0.0, -0.21,
-      //   0.12, -0.32, 0.15, -0.3, 0.0, -0.21,
-      //   0.15, -0.3, 0.18, -0.27, 0.0, -0.21,
-      //   0.18, -0.27, 0.21, -0.24, 0.0, -0.21,
-      // ];
-
       //Bind buffer object to a target
       gl.bindBuffer(gl.ARRAY_BUFFER,gl.createBuffer());
       //Write data into the buffer object
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(cheeks_vertices),gl.STATIC_DRAW);
       //Assign the buffer object to an attribute variable
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
-      //Enable assignment
-      gl.enableVertexAttribArray(aPositionPointer);
-      // 
-      gl.vertexAttrib1f(aPointSizePointer, 5.0);
-      // 
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
-
       
       // Draw triangles
       for(let i=0; i<cheeks_vertices.length/2; i+=3){
@@ -189,13 +174,12 @@
       }
       
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < cheeks_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -207,6 +191,7 @@
       }
 
       gl.bindBuffer(gl.ARRAY_BUFFER, null);
+
 
       //  LEFT EAR
       // coordinates
@@ -232,8 +217,6 @@
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(left_ear_vertices),gl.STATIC_DRAW);
       //Assign the buffer object to an attribute variable
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
- 
-
       
       // Draw triangles
       for(let i=0; i<left_ear_vertices.length/2; i+=3){
@@ -243,13 +226,12 @@
       }
       
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < left_ear_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -287,8 +269,6 @@
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(right_ear_vertices),gl.STATIC_DRAW);
       //Assign the buffer object to an attribute variable
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
- 
-
       
       // Draw triangles
       for(let i=0; i<right_ear_vertices.length/2; i+=3){
@@ -298,13 +278,12 @@
       }
       
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < right_ear_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -321,7 +300,7 @@
       //  UPPER HEAD
       // coordinates
       var upper_head_vertices = [
-        // right
+        // right side
         0.4, 0.0, 0.39, 0.04, 0.28, 0.07,
         0.39, 0.04, 0.38, 0.08, 0.28, 0.07,
         0.38, 0.08, 0.37, 0.12, 0.28, 0.07,
@@ -340,7 +319,7 @@
         0.06, 0.47, 0.03, 0.47, 0.0, 0.0,
         0.03, 0.47, 0.0, 0.47, 0.0, 0.0,
 
-        // left
+        // left side
         -0.4, 0.0, -0.39, 0.04, -0.28, 0.07,
         -0.39, 0.04, -0.38, 0.08, -0.28, 0.07,
         -0.38, 0.08, -0.37, 0.12, -0.28, 0.07,
@@ -367,8 +346,6 @@
       //Assign the buffer object to an attribute variable
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
  
-
-      
       // Draw triangles
       for(let i=0; i<upper_head_vertices.length/2; i+=3){
         // alternating color of triangle
@@ -377,13 +354,12 @@
       }
       
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < upper_head_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -395,10 +371,6 @@
       }
 
       gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
-
-      
-
 
 
       // NOSE
@@ -451,7 +423,6 @@
       //Assign the buffer object to an attribute variable
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
       
-
       // Draw triangles
       //    **Note: Initially used increments of 6 but always skipped vertices on the array so tried other integers and 3 worked
       //    Assumption is that second parameter of drawArrays is the index of the VERTEX not the number.
@@ -462,12 +433,12 @@
       }
 
       // Draw lines
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < nose_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -537,13 +508,12 @@
       }
       
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < right_eye_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -613,13 +583,12 @@
       }
       
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < left_eye_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -631,7 +600,6 @@
       }
 
       gl.bindBuffer(gl.ARRAY_BUFFER, null);
-
 
 
       //  LOWER LIP 
@@ -675,13 +643,12 @@
       }
 
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < lower_lip_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -710,10 +677,9 @@
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
       
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < lip_midline_vertices.length/2; i+=2) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
         // points to connects line on perimeter of nose
         gl.drawArrays(gl.LINES, i, 2);
       }
@@ -760,13 +726,12 @@
       }
 
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < upper_lip_right_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -812,13 +777,12 @@
       }
 
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < upper_lip_right_vertices.length/2; i+=3) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
-        // points to connects line on perimeter of nose
+        // points to connects line on perimeter
         gl.drawArrays(gl.LINES, i, 2);
-        // one point from perimeter going to center of nose
+        // one point from perimeter going to common inside vertex
         gl.drawArrays(gl.LINES, i+1, 2);
       }
 
@@ -943,19 +907,11 @@
       gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(name_vertices),gl.STATIC_DRAW);
       //Assign the buffer object to an attribute variable
       gl.vertexAttribPointer(aPositionPointer,2,gl.FLOAT,false,0,0);
-      
-      // // Draw triangles
-      // for(let i=0; i<name_vertices.length/2; i+=3){
-      //   // alternating color of triangle
-      //   i%6==0?gl.uniform4f(u_colorLocation,0.0,0.0,1.0,1.0):gl.uniform4f(u_colorLocation,0.0,0.5,1.0,1.0);
-      //   gl.drawArrays(gl.TRIANGLES, i, 3);
-      // }
 
       // Draw lines
-      gl.uniform4f(u_colorLocation,1.0,0.5,0.0,1.0);
+      // set color
+      gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
       for(let i = 0; i < name_vertices.length/2; i+=2) {
-        // set color
-        gl.uniform4f(u_colorLocation,1.0,0.0,0.0,1.0);
         // points to connects line on perimeter of nose
         gl.drawArrays(gl.LINES, i, 2);
       }
